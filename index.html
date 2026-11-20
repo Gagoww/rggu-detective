@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Кто украл зачётку? Детектив РГГУ</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root{--o-bg:#e8ebf3;--o-card:#fff;--o-ink:#1c2340;--o-mute:#5b6485;--acc:#b3175a;--onacc:#fff;--warn:#c0392b;
+--bg:var(--tg-theme-secondary-bg-color,var(--o-bg));
+--card:var(--tg-theme-section-bg-color,var(--tg-theme-bg-color,var(--o-card)));
+--ink:var(--tg-theme-text-color,var(--o-ink));
+--mute:var(--tg-theme-hint-color,var(--o-mute));
+--line:#c9cfe0;--soft:#f1f3f9}
+html[data-scheme="dark"]{--o-bg:#121726;--o-card:#1b2238;--o-ink:#e8ebf7;--o-mute:#9aa3c4;--acc:#ff6fa5;--onacc:#1a0711;--warn:#ff8a7a;--line:#2e3756;--soft:#232b46}
+@supports (color:color-mix(in srgb,red,blue)){:root,html[data-scheme="dark"]{--line:color-mix(in srgb,var(--mute) 35%,transparent);--soft:color-mix(in srgb,var(--mute) 12%,var(--card))}}
+*,*:before,*:after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent;
+padding:var(--tg-content-safe-area-inset-top,env(safe-area-inset-top,0px)) 0 env(safe-area-inset-bottom,0px)}
+main{max-width:560px;margin:0 auto;padding:14px 12px 32px}
+h1,h2{font-family:Georgia,"Times New Roman",serif;line-height:1.15;margin:0 0 10px}
+h1{font-size:31px}h2{font-size:24px}
+.card{background:var(--card);border-radius:14px;padding:16px;margin-bottom:12px}
+.stamp{display:inline-block;border:3px solid var(--acc);color:var(--acc);font:700 15px Georgia,serif;padding:3px 12px;transform:rotate(-4deg);border-radius:4px;margin-bottom:12px}
+.mute{color:var(--mute);font-size:15px}
+button{font:inherit;cursor:pointer;width:100%;text-align:left;padding:13px 14px;margin:8px 0 0;border-radius:12px;border:1.5px solid var(--line);background:var(--soft);color:var(--ink);-webkit-user-select:none;user-select:none;transition:transform .08s}
+button:active{transform:scale(.98)}
+button:focus-visible{border-color:var(--acc);outline:none}
+button.go{background:var(--acc);border-color:var(--acc);color:var(--onacc);text-align:center;font-weight:600}
+button[disabled]{opacity:.6;cursor:default;transform:none}
+.who{font-size:44px;line-height:1}
+.ans{border-left:4px solid var(--acc);padding:6px 12px;margin:10px 0;background:var(--soft);border-radius:0 8px 8px 0}
+.fact{border-left-color:var(--mute)}
+.bar{height:6px;background:var(--line);border-radius:3px;margin-bottom:10px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--acc);transition:width .3s}
+.notes{font-size:15px}.notes ul{padding-left:20px;margin:8px 0 0}.notes li{margin:4px 0}
+.time{font-size:14px;color:var(--mute);margin:0 4px 10px}.time.warn{color:var(--warn);font-weight:600}
+.pen{color:var(--warn);font-size:15px;font-weight:600}
+.res{text-align:center}.res .who{font-size:64px}
+</style></head><body><main id="app"><div class="card"><p>Загрузка игры…</p><noscript>Для игры нужен включённый JavaScript.</noscript></div></main>
+<script>
+var C=[
+{e:"🎨",hide:"Девушка с большим тубусом",who:"Ника, искусствовед",
+arr:"Ты выходишь из дверей и сразу врезаешься в девушку с огромным тубусом. Из него едва не вываливаются листы с акварельными эскизами, а руки у неё в разноцветных пятнах.",
+m:{t:"Ой, прости! Это всё твои работы?",a:"«Ничего страшного! Я Ника, будущий искусствовед. Везу эскизы на мини-показ. Знаешь, что у нас классно? Мы учимся не по картинкам из учебника, а в самих музеях: практика проходит в музеях и галереях Москвы, например в Историческом музее, Оружейной палате и Государственном центре современного искусства. У нас есть кафедры музеологии и кино и современного искусства, а ещё проходят студенческие конференции про музеи и культурное наследие. Искусство здесь не конспектируют, а проживают».",tr:"art"},
+q:{t:"У старосты украли зачётку, а у неё сегодня экзамен. Ты ничего не заметила?",a:"«Зачётку?! Какой кошмар. Я бежала по коридору, и кто-то промчался мимо с тонкой синей книжицей в руках, чуть не сбил меня. Обернуться я не успела, но, кажется, он свернул туда, где слышно только эхо шагов и шуршание старых бумаг. Всё, мне надо бежать, показ скоро!»",clue:"Кто-то с тонкой синей книжицей умчался туда, где эхо шагов и шуршание старых бумаг"}},
+{e:"📜",hide:"Парень в белых перчатках",who:"Тимур, историк",
+arr:"Между высоких стеллажей с пожелтевшими папками пахнет пылью веков. Парень в белых перчатках бережно раскладывает на столе хрупкие листы и не сразу замечает тебя.",
+m:{t:"Привет! Я на Дне открытых дверей. Что это за листы?",a:"«Привет, я Тимур, историк. Это копия документа позапрошлого века. Сверяю её с другими источниками, чтобы понять, где правда, а где красивая легенда. Историю учат в разных вузах, но у нас сильная научная база: профильные кафедры и учебно-научные центры, например по региональной истории и москвоведению или по истории постсоветской России. Есть студенческие научные сообщества, где можно выступать с докладами и искать темы вместе. А практика идёт не только в аудитории: архивы и экспедиции, например в Смоленскую область и в Крым. Историю у нас считают сильным направлением даже на фоне топовых московских вузов».",tr:"hist"},
+q:{t:"У старосты украли зачётку. Сюда никто не забегал с тонкой синей книжицей?",a:"«Забегал, минут двадцать назад. Дышал как после марафона и просил тихое место, чтобы без свидетелей прорепетировать реплику вслух. Я показал в сторону, откуда всегда звучит чужая речь: там никого не удивит, что кто-то бормочет себе под нос».",clue:"Он искал место, где можно без свидетелей прорепетировать реплику вслух"}},
+{e:"🔤",hide:"Девушка в наушниках",who:"Соня, лингвист",
+arr:"Из динамиков льётся мелодичная иностранная речь, а на стенах висят карты и таблички с иероглифами. Девушка в наушниках что-то повторяет вслух, слегка покачиваясь в такт.",
+m:{t:"Привет! А что это за язык?",a:"«Привет, я Соня. Это японский. В Институте лингвистики можно изучать восточные языки, корейский и японский, и это целая программа перевода и межкультурной коммуникации. Ты учишься понимать не просто слова, а людей и культуру, которая за ними стоит. Это про живой разговор двух миров, а не про зубрёжку списков слов».",tr:"lang"},
+q:{t:"У старосты украли зачётку. Не заходил сюда человек с синей книжицей?",a:"«Заходил! Бормотал одну и ту же реплику, потом хихикнул: „Идеальный реквизит для кадра, потом верну“. Я решила, что это розыгрыш. Он спрашивал, где найти лупу и тонкую кисточку, чтобы состарить вещь. Я махнула туда, где всё время что-то склеивают, промывают и разглядывают под лупой».",clue:"Он назвал зачётку «реквизитом для кадра» и просил лупу и кисточку, чтобы состарить вещь"}},
+{e:"🏺",hide:"Парень в фартуке",who:"Артём, археолог",
+arr:"На длинных столах лежат лупы, кисточки и осколки глины с узорами. Парень в фартуке склеивает черепок, а рядом сушится что-то, похожее на древнюю табличку.",
+m:{t:"Привет! Ты что собираешь?",a:"«Привет, я Артём, археолог. Склеиваю сосуд с раскопок: по таким осколкам понятно, как люди жили тысячу лет назад. Знаешь, чем наш вуз гордится по-настоящему? Мезоамериканским центром имени Юрия Кнорозова. Кнорозов расшифровал письмо майя, а мы изучаем иероглифы майя прямо на занятиях. У РГГУ есть подразделения в Мексике и Гватемале. Не каждый вуз может похвастаться таким научным наследием, ты оказываешься внутри настоящей науки».",tr:"arch"},
+q:{t:"У старосты украли зачётку. Ты не видел человека с синей книжицей?",a:"«Забегал за кисточкой, суетливый такой. Всё спрашивал, где взять свет и штатив: мол, надо срочно снять один кадр. Я сказал, что за светом и камерами идут туда, где всё время что-то снимают и монтируют. На подоконнике ещё остались пятна акварели, но чьи они, не знаю».",clue:"Он искал свет и штатив, чтобы срочно снять кадр; на подоконнике пятна акварели"}},
+{e:"🎥",hide:"Девушка у монитора",who:"Алина, медиакоммуникации",
+arr:"В студии стоит свет, на штативах камеры, а на мониторе замер кадр какого-то репортажа. Девушка в наушниках подкручивает настройки и бросает на тебя быстрый взгляд.",
+m:{t:"Привет! Это ваша студия? Что тут снимают?",a:"«Привет, я Алина, учусь на медиакоммуникациях. Да, это наше место силы: мы снимаем, монтируем, придумываем проекты, а почти все события на факультете делаем сами. Комьюнити у нас дружное, внеучебных активностей столько, что вечером не хочется уходить домой. Студенты хвалят преподавателей, которые делятся реальным опытом из профессии. Ты быстро оказываешься в настоящих проектах: снимаешь, организуешь события, ведёшь соцсети».",tr:"media"},
+q:{t:"У старосты украли зачётку. Ты ничего не видела?",a:"«Зачётку? Нет, я с утра тут, у меня съёмка, видишь? Ничего не видела, правда». Она быстро закрывает тёмную сумку на стуле. «Ой, мне надо кадр дописать, совсем нет времени, извини!»",clue:"Алина торопливо закрыла сумку и очень спешила закончить кадр"}}
+];
+var PL={archive:["📜","Архив","тихо, шуршат старые бумаги, эхо шагов"],lang:["🔤","Кабинет языков","из динамиков льётся чужая речь"],lab:["🏺","Лаборатория","лупы, кисточки, осколки"],media:["🎥","Медиастудия","свет, штативы, мониторы"],
+wardrobe:["🧥","Гардероб","ряды курток и шарфов"],library:["📚","Библиотека","тихо шелестят страницы"],canteen:["🥟","Столовая","пахнет пирожками и кофе"]};
+var IDX={archive:1,lang:2,lab:3,media:4};
+var P=[["Тимур","📜","историк"],["Соня","🔤","лингвист"],["Артём","🏺","археолог"],["Ника","🎨","искусствовед"],["Алина","🎥","медиакоммуникации"]];
+var WRONG={"Тимур":"Тимур сверял документы в перчатках и о кадрах даже не заговаривал.","Соня":"Соня лишь пересказала чужие слова.","Артём":"Артём возился с черепками весь день и сам отправил человека дальше.","Ника":"Руки у Ники в краске, но краски нужны для эскизов, а не для кадра."};
+var R={hist:["Историк-следопыт","Ты любишь докапываться до сути и находить ответы в источниках. Тебе сюда: история, архивное дело, документоведение."],
+lang:["Лингвист-полиглот","Ты чувствуешь слова и любишь языки. Тебе сюда: перевод, лингвистика, восточные языки."],
+arch:["Археолог-искатель","Ты не боишься копать глубже и умеешь читать следы. Тебе сюда: археология и история древнего мира."],
+media:["Медиа-креатор","Ты умеешь рассказывать истории и чувствуешь аудиторию. Тебе сюда: медиакоммуникации, журналистика, реклама и PR."],
+art:["Искусствовед-эстет","Ты видишь историю и красоту в вещах. Тебе сюда: история искусства, музейное дело, культурное наследие."]};
+// ── Настройки ──
+var BOT_LINK="https://t.me/rggu_detective_bot"; // ссылка на бота: её получат друзья по кнопке «Позвать друга»
+var START=60,STEP=4,MISS=5,BAD=10;
+var DECOY={wardrobe:"Гардеробщица качает головой: «Никто с синей книжицей не пробегал, тут только куртки сдают». Ты зря потратил время.",
+library:"В библиотеке тишина и ровные ряды книг. Синих корешков много, но зачётки среди них нет, и никто ничего не видел.",
+canteen:"В столовой очередь за пирожками. Все спорят о сессии, но о пропавшей зачётке никто не слышал."};
+
+// ── Telegram ──
+var tg=window.Telegram&&window.Telegram.WebApp,inTG=!!(tg&&tg.platform&&tg.platform!=="unknown");
+function can(ver){return inTG&&typeof tg.isVersionAtLeast==="function"&&tg.isVersionAtLeast(ver)}
+function scheme(){var d=inTG?tg.colorScheme==="dark":(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches);document.documentElement.setAttribute("data-scheme",d?"dark":"light")}
+function haptic(t){if(!can("6.1"))return;try{if(t==="tap")tg.HapticFeedback.impactOccurred("light");else tg.HapticFeedback.notificationOccurred(t)}catch(e){}}
+var backFn=null;
+function setBack(fn){backFn=fn||null;if(!can("6.1"))return;try{fn?tg.BackButton.show():tg.BackButton.hide()}catch(e){}}
+
+// ── Сохранение прогресса (облако Telegram + запасной localStorage) ──
+var KEY="rggu_game_v1";
+function saveState(){var s=JSON.stringify({g:g,v:v,st:stS,mins:mins,order:order});
+try{localStorage.setItem(KEY,s)}catch(e){}
+if(can("6.9"))try{tg.CloudStorage.setItem(KEY,s,function(){})}catch(e){}}
+function clearState(){try{localStorage.removeItem(KEY)}catch(e){}if(can("6.9"))try{tg.CloudStorage.removeItem(KEY,function(){})}catch(e){}}
+function parse(s){try{var o=JSON.parse(s);if(o&&o.st&&o.st.length===5&&o.order&&o.mins>0&&o.g>=0&&o.g<=4)return o}catch(e){}return null}
+function loadState(cb){var local=null;try{local=localStorage.getItem(KEY)}catch(e){}
+if(!can("6.9"))return cb(parse(local));
+var done=false,t=setTimeout(function(){if(!done){done=true;cb(parse(local))}},1500);
+try{tg.CloudStorage.getItem(KEY,function(err,val){if(done)return;done=true;clearTimeout(t);cb(parse(val)||parse(local))})}catch(e){done=true;clearTimeout(t);cb(parse(local))}}
+
+// ── Игра ──
+var app=document.getElementById("app"),g,v,stS,mins,order,playing=false;
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function fresh(){g=0;v=0;stS=[0,0,0,0,0];mins=START;order=shuffle(Object.keys(PL))}
+function clues(){var r=[];for(var k=0;k<5;k++)if(stS[k]===2)r.push(C[k].q.clue);return r}
+function B(label,act,arg,cls){return '<button'+(cls?' class="'+cls+'"':'')+' data-a="'+act+'"'+(arg!==undefined?' data-k="'+arg+'"':'')+'>'+label+'</button>'}
+function D(label){return '<button disabled>'+label+'</button>'}
+function bar(){return '<div class="bar"><i style="width:'+Math.min(100,g*20+stS[g]*10)+'%"></i></div><div class="time'+(mins<=15?' warn':'')+'">⏱ до экзамена: '+mins+' мин</div>'}
+function notes(){var c=clues();if(!c.length)return '';return '<div class="card notes"><b>📒 Блокнот улик</b><ul>'+c.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul></div>'}
+function show(h,back){app.innerHTML=h;setBack(back);try{window.scrollTo(0,0)}catch(e){}if(playing)saveState()}
+function spend(n){mins-=n;if(mins<=0){mins=0;lose();return true}return false}
+
+function intro(saved){playing=false;
+var h='<div class="card"><div class="stamp">ДЕЛО №1</div><h1>Кто украл зачётку?</h1><p>Сегодня у старосты важный экзамен, а зачётку кто-то украл. Без неё на экзамен не пустят, а до начала всего час. Ты пришёл на День открытых дверей РГГУ, и староста попросила помочь.</p><p class="mute">Расспрашивай студентов, записывай улики в блокнот и сам решай, куда идти. Каждый переход отнимает время, а неверный поворот ещё больше. В конце назови виновного.</p>';
+if(saved){window._saved=saved;h+=B('▶️ Продолжить расследование · '+saved.mins+' мин','resume',undefined,'go')+B('Начать заново','new')}
+else h+=B('Выйти в коридор','begin',undefined,'go');
+show(h+'</div>',null)}
+function begin(){fresh();playing=true;scene(0)}
+function resume(){var s=window._saved;if(!s)return begin();g=s.g;v=s.v||0;stS=s.st;mins=s.mins;order=s.order;playing=true;scene(v)}
+function restart(){clearState();fresh();intro(null)}
+function scene(k){v=k;var p=C[k],st=stS[k];
+var h=bar()+'<div class="card"><div class="who">'+p.e+'</div><h2>'+(st?p.who:p.hide)+'</h2><p>'+p.arr+'</p>';
+h+=st?D(p.m.t)+'<div class="ans fact">'+p.m.a+'</div>':B(p.m.t,'say',1);
+if(st)h+=st>1?D(p.q.t)+'<div class="ans">'+p.q.a+'</div>':B(p.q.t,'say',2);
+var fin=(k===4&&st===2);
+if(fin)h+=B('Назвать виновного','accuse',undefined,'go');
+h+=B('Выйти в коридор','hub',undefined,fin?'':'go')+'</div>';
+show(h+notes(),hub)}
+function say(n){var had=stS[v]===2;stS[v]=Math.max(stS[v],n);if(n===2&&!had)haptic("success");scene(v)}
+function hub(){var h=bar()+'<div class="card"><h2>Куда пойдёшь?</h2><p class="mute">Ориентируйся на рассказы собеседников и на описание мест. Неверный поворот стоит '+MISS+' минут.</p>';
+h+=B('🎨 '+(stS[0]?'Ника, студентка с тубусом':'Девушка с тубусом')+'<br><span class="mute">коридор, где вы столкнулись</span>','scene',0);
+order.forEach(function(x){var done=IDX[x]!==undefined&&IDX[x]<=g;h+=B(PL[x][0]+' '+PL[x][1]+(done?' ✓':'')+'<br><span class="mute">'+PL[x][2]+'</span>','walk',x)});
+if(g===4&&stS[4]===2)h+=B('Назвать виновного','accuse',undefined,'go');
+show(h+'</div>'+notes(),null)}
+function walk(x){var k=IDX[x];
+if(k!==undefined&&k<=g){scene(k);return}
+if(k===g+1&&stS[g]===2){if(spend(STEP))return;g++;scene(g);return}
+haptic("error");if(spend(MISS))return;
+var txt=k===undefined?DECOY[x]:'Здесь ты пока ничего не узнаешь: ещё непонятно, кого и о чём спрашивать. Загляни в блокнот и вернись к тому, с кем говорил последним: возможно, ты что-то упустил.';
+show(bar()+'<div class="card"><h2>'+PL[x][0]+' '+PL[x][1]+'</h2><p>'+txt+'</p><p class="pen">−'+MISS+' мин</p>'+B('Вернуться к последнему собеседнику','scene',g,'go')+B('Назад в коридор','hub')+'</div>'+notes(),hub)}
+function accuse(){if(!(g===4&&stS[4]===2))return hub();var h=bar()+'<div class="card"><h2>Кто взял зачётку?</h2><p class="mute">Перечитай блокнот и выбери одного. Ошибка стоит '+BAD+' минут.</p>';
+P.forEach(function(q,k){h+=B(q[1]+' '+q[0]+', '+q[2],'pick',k)});show(h+'</div>'+notes(),hub)}
+function pick(k){if(k!==4){haptic("error");if(spend(BAD))return;show(bar()+'<div class="card"><h2>Не сходится</h2><p>'+WRONG[P[k][0]]+' Перечитай блокнот: кому понадобились свет, штатив и «кадр»?</p><p class="pen">−'+BAD+' мин</p>'+B('Выбрать ещё раз','accuse',undefined,'go')+'</div>'+notes(),accuse);return}
+playing=false;clearState();haptic("success");
+show('<div class="card"><div class="stamp">ДЕЛО ЗАКРЫТО</div><h2>Это Алина!</h2><p>Ты возвращаешься в студию и кладёшь блокнот перед ней. Алина вздыхает и достаёт из сумки зачётку: «Мне нужен был реквизит для ролика про День открытых дверей. Хотела вернуть через пять минут, а потом увлеклась монтажом. Простите!» Ты бежишь к старосте. Она успевает на экзамен, и до начала остаётся '+mins+' мин.</p>'+B('Что тебе было ближе всего?','interest',undefined,'go')+'</div>'+notes(),null)}
+function lose(){playing=false;clearState();haptic("warning");
+show('<div class="card res"><div class="stamp">ВРЕМЯ ВЫШЛО</div><div class="who">⏰</div><h2>Экзамен начался без старосты</h2><p>Ты слишком долго блуждал по корпусу, и зачётку найти не успел. Попробуй ещё раз: внимательнее читай подсказки собеседников и описания мест.</p>'+B('Начать заново','new',undefined,'go')+'</div>'+notes(),null)}
+function interest(){var o=[["media","🎥 Снимать, придумывать проекты и организовывать события"],["hist","📜 Копаться в источниках и архивах"],["lang","🔤 Переводить и изучать восточные языки"],["arch","🏺 Читать следы прошлого и расшифровывать письмена"],["art","🎨 Работать с искусством и музеями"]];
+var h='<div class="card"><h2>Что бы ты выбрал?</h2><p class="mute">Выбери то, чем хотелось бы заниматься.</p>';
+o.forEach(function(x){h+=B(x[1],'result',x[0])});show(h+'</div>',null)}
+var lastType="";
+function result(b){var e={media:"🎥",hist:"📜",lang:"🔤",arch:"🏺",art:"🎨"}[b];lastType=R[b][0];
+show('<div class="card res"><div class="stamp">ТВОЙ ТИП</div><div class="who">'+e+'</div><h1>'+R[b][0]+'</h1><p>'+R[b][1]+'</p><p class="mute">Позови друга: пусть тоже пройдёт расследование и найдёт своё направление.</p>'+B('📤 Позвать друга','share',undefined,'go')+B('🔄 Пройти заново','new')+'</div>',interest)}
+function share(){var url=BOT_LINK+"?startapp",text="Я раскрыл дело о пропавшей зачётке, мой тип: «"+lastType+"». Попробуй сам!";
+var link="https://t.me/share/url?url="+encodeURIComponent(url)+"&text="+encodeURIComponent(text);
+if(inTG&&tg.openTelegramLink){try{tg.openTelegramLink(link);return}catch(e){}}
+window.open(link,"_blank")}
+
+var ACT={begin:begin,resume:resume,"new":restart,scene:function(k){scene(+k)},say:function(k){say(+k)},hub:hub,walk:walk,accuse:accuse,pick:function(k){pick(+k)},interest:interest,result:result,share:share};
+app.addEventListener("click",function(e){var b=e.target.closest?e.target.closest("button[data-a]"):null;if(!b||b.disabled)return;
+var f=ACT[b.getAttribute("data-a")];if(!f)return;haptic("tap");f(b.getAttribute("data-k"))});
+
+scheme();
+if(inTG){try{tg.ready();tg.expand()}catch(e){}
+if(can("6.1")){try{tg.setHeaderColor("secondary_bg_color");tg.setBackgroundColor("secondary_bg_color")}catch(e){}try{tg.BackButton.onClick(function(){if(backFn){haptic("tap");backFn()}})}catch(e){}}
+if(can("7.7"))try{tg.disableVerticalSwipes()}catch(e){}
+try{tg.onEvent("themeChanged",scheme)}catch(e){}}
+else if(window.matchMedia){try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",scheme)}catch(e){}}
+fresh();loadState(function(s){intro(s)});
+</script></body></html>
